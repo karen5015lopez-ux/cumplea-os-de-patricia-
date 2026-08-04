@@ -1,0 +1,458 @@
+﻿<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>50 Años de Patricia</title>
+    
+    <!-- Tipografía Elegante Cursiva -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            padding: 0;
+            /* Fondo de la pantalla lila/lavanda con textura */
+            background: radial-gradient(circle, #f3ebfc 0%, #d8c7f3 50%, #b89ee0 100%);
+            font-family: 'Montserrat', sans-serif;
+            color: #4a3e56;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Contenedor de Mariposas Voladoras al abrir */
+        #contenedor-mariposas {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .mariposa-volando {
+            position: absolute;
+            user-select: none;
+            animation: volarLibre linear forwards;
+            filter: drop-shadow(0 4px 8px rgba(107, 91, 149, 0.35));
+        }
+
+        @keyframes volarLibre {
+            0% {
+                transform: translateY(105vh) scale(0.4) rotate(-10deg);
+                opacity: 0;
+            }
+            15% { opacity: 1; }
+            85% { opacity: 0.9; }
+            100% {
+                transform: translateY(-15vh) scale(1.1) rotate(20deg);
+                opacity: 0;
+            }
+        }
+
+        /* PORTADA DE ENTRADA */
+        #portada {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(135deg, #ede4f5 0%, #d8c6f2 100%);
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            transition: all 0.8s ease;
+        }
+
+        #portada h2 {
+            font-family: 'Great Vibes', cursive;
+            font-size: 58px;
+            color: #5c4d7d;
+            margin-bottom: 5px;
+            font-weight: normal;
+        }
+
+        .btn-entrar {
+            background: linear-gradient(45deg, #7c62b3, #9b72cf);
+            color: white;
+            padding: 16px 45px;
+            border: none;
+            border-radius: 30px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            box-shadow: 0 6px 20px rgba(124, 98, 179, 0.4);
+            margin-top: 25px;
+            transition: transform 0.2s;
+        }
+
+        .btn-entrar:active { transform: scale(0.96); }
+
+        /* TARJETA PRINCIPAL DE LA INVITACIÓN */
+        .container {
+            max-width: 440px;
+            width: 90%;
+            /* Fondo lila/lavanda dentro de la invitación en vez de blanco plano */
+            background: linear-gradient(180deg, #ffffff 0%, #f4ebfc 40%, #ebdcfc 100%);
+            backdrop-filter: blur(12px);
+            margin: 30px auto;
+            border-radius: 25px;
+            box-shadow: 0 12px 35px rgba(92, 77, 125, 0.25);
+            border: 2px solid #d4c2f0;
+            overflow: hidden;
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* Emojis superiores */
+        .decoracion-superior {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 12px;
+        }
+
+        /* Título entero con la misma letra cursiva elegante */
+        .titulo-completo {
+            font-family: 'Great Vibes', cursive;
+            font-size: 56px;
+            color: #5c4d7d;
+            margin: 0 0 15px 0;
+            font-weight: normal;
+            line-height: 1.1;
+        }
+
+        /* MARCO OVALADO CON BOLAS DISCO A LOS LADOS */
+        .contenedor-foto {
+            position: relative;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .marco-ovalado {
+            width: 220px;
+            height: 290px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #b8a9c9;
+            box-shadow: 0 8px 20px rgba(107, 91, 149, 0.25);
+            background-color: #f5f0bb;
+            margin: 0 auto;
+        }
+
+        .foto-cumple {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Bolas disco visibles flotando dentro de la tarjeta */
+        .disco-tarjeta {
+            position: absolute;
+            font-size: 36px;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.15));
+            animation: flotarDisco 4s infinite ease-in-out;
+        }
+
+        .disco-izq { top: 20%; left: -25px; animation-delay: 0s; }
+        .disco-der { bottom: 15%; right: -25px; animation-delay: 2s; }
+
+        @keyframes flotarDisco {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(12deg); }
+        }
+
+        .mensaje-invitacion {
+            font-family: 'Great Vibes', cursive;
+            font-size: 28px;
+            color: #6b5b95;
+            margin: 15px 0;
+        }
+
+        /* Cuenta Regresiva */
+        .contador {
+            display: flex;
+            justify-content: space-around;
+            background: rgba(255, 255, 255, 0.7);
+            padding: 15px 10px;
+            border-radius: 15px;
+            margin: 20px 0;
+            border: 1px solid #dcd6f7;
+        }
+
+        .bloque { text-align: center; }
+
+        .numero {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: #5c4d7d;
+            display: block;
+        }
+
+        .etiqueta {
+            font-size: 10px;
+            text-transform: uppercase;
+            color: #8e7cc3;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        /* Detalles del Evento */
+        .bloque-fecha {
+            margin: 20px 0;
+            padding: 18px 15px;
+            background: rgba(255, 255, 255, 0.8);
+            border-radius: 15px;
+            border: 1px dashed #b8a9c9;
+        }
+
+        .fecha-destacada {
+            font-size: 22px;
+            color: #6b5b95;
+            font-weight: 600;
+            letter-spacing: 2px;
+            margin: 5px 0;
+        }
+
+        .lugar-texto {
+            font-size: 15px;
+            color: #4a3e56;
+            line-height: 1.6;
+            margin-top: 10px;
+        }
+
+        /* Lluvia de Sobres */
+        .lluvia-sobres {
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 12px;
+            border-radius: 12px;
+            color: #6b5b95;
+            font-weight: 600;
+            font-size: 14px;
+            margin: 20px 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            border: 1px solid #dcd6f7;
+        }
+
+        /* Botón Confirmar WhatsApp */
+        .btn-confirmar {
+            display: inline-block;
+            background: linear-gradient(45deg, #7c62b3, #5c4d7d);
+            color: white;
+            text-decoration: none;
+            padding: 16px 35px;
+            border-radius: 30px;
+            font-weight: 600;
+            font-size: 13px;
+            letter-spacing: 1.5px;
+            box-shadow: 0 4px 15px rgba(107, 91, 149, 0.3);
+            margin-top: 5px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+        }
+
+        #reproductor-btn {
+            position: fixed;
+            bottom: 20px; right: 20px;
+            background: white;
+            border: 2px solid #8e7cc3;
+            color: #8e7cc3;
+            border-radius: 50%;
+            width: 50px; height: 50px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 20px; cursor: pointer; z-index: 100;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CONTENEDOR MARIPOSAS VOLADORAS MORADAS Y DORADAS -->
+    <div id="contenedor-mariposas"></div>
+
+    <!-- PORTADA DE ENTRADA (CON EMOJI DE FIESTA) -->
+    <div id="portada">
+        <div style="font-size: 48px; margin-bottom: 10px;">🪩 ✨ 🥳</div>
+        <h2>¡Acompáñanos a celebrar!</h2>
+        <p style="color: #5c4d7d; font-size: 15px; font-weight: 600;">50 Años de Patricia</p>
+        <button class="btn-entrar" onclick="abrirInvitacion()">Abrir Invitación</button>
+    </div>
+
+    <!-- AUDIO -->
+    <audio id="musica" loop src="musica.mp3" preload="auto"></audio>
+    <button id="reproductor-btn" onclick="controlarMusica()">🎵</button>
+
+    <!-- TARJETA PRINCIPAL DE LA INVITACIÓN -->
+    <div class="container">
+        <!-- Emojis de fiesta pedidos 🎉 🥳 y bola disco -->
+        <div class="decoracion-superior">🪩 🎉 🥳</div>
+        
+        <!-- Título con la misma letra cursiva unificada -->
+        <div class="titulo-completo">
+            50 Años de Patricia
+        </div>
+
+        <!-- FOTO OVALADA CON BOLAS DISCO VISIBLES -->
+        <div class="contenedor-foto">
+            <span class="disco-tarjeta disco-izq">🪩</span>
+            <div class="marco-ovalado">
+                <img src="foto.jpg" alt="Patricia" class="foto-cumple" onerror="this.src='https://via.placeholder.com/220x290/d3cce3/6b5b95?text=Sube+tu+foto.jpg'">
+            </div>
+            <span class="disco-tarjeta disco-der">🪩</span>
+        </div>
+
+        <div class="mensaje-invitacion">
+            ¡Acompáñanos a celebrar mi Cumpleaños!
+        </div>
+
+        <!-- BLOQUE DE DETALLES -->
+        <div class="bloque-fecha">
+            <div style="font-size: 12px; color: #8e7cc3; letter-spacing: 2px; text-transform: uppercase;">SÁBADO</div>
+            <div class="fecha-destacada">AGOSTO 29</div>
+            <div style="font-size: 14px; color: #6b5b95; font-weight: 600;">7:00 PM</div>
+            
+            <div class="lugar-texto">
+                📍 <strong>Lugar:</strong><br>
+                Cra. 80 N #73A - 07<br>
+                Bosa Laureles
+            </div>
+        </div>
+
+        <!-- CUENTA REGRESIVA -->
+        <div class="contador">
+            <div class="bloque"><span class="numero" id="dias">00</span><span class="etiqueta">Días</span></div>
+            <div class="bloque"><span class="numero" id="horas">00</span><span class="etiqueta">Horas</span></div>
+            <div class="bloque"><span class="numero" id="minutos">00</span><span class="etiqueta">Min</span></div>
+            <div class="bloque"><span class="numero" id="segundos">00</span><span class="etiqueta">Seg</span></div>
+        </div>
+
+        <!-- LLUVIA DE SOBRES -->
+        <div class="lluvia-sobres">
+            ✉️ Lluvia de Sobres ✉️
+        </div>
+
+        <!-- CONFIRMACIÓN DE ASISTENCIA -->
+        <p style="font-size: 12px; color: #777; margin-bottom: 8px;">Confirma tu asistencia:</p>
+        <a href="https://wa.me/573209764085?text=¡Hola!%20Confirmo%20mi%20asistencia%20al%20cumpleaños%20de%20Patricia." class="btn-confirmar" target="_blank">
+            Confirmar por WhatsApp
+        </a>
+
+        <div style="font-family: 'Great Vibes', cursive; font-size: 38px; color: #6b5b95; margin-top: 25px;">
+            Te esperamos
+        </div>
+    </div>
+
+    <script>
+        function abrirInvitacion() {
+            const portada = document.getElementById('portada');
+            portada.style.opacity = '0';
+            setTimeout(() => {
+                portada.style.display = 'none';
+                liberarMariposasMoradasYDoradas();
+            }, 800);
+            
+            const audio = document.getElementById('musica');
+            audio.muted = false;
+            audio.volume = 1.0;
+            audio.load();
+            
+            const playPromise = audio.play();
+            if (playPromise !== undefined) {
+                playPromise.then(() => {
+                    console.log("Música sonando correctamente.");
+                }).catch(error => {
+                    console.log("El navegador requiere interacción.", error);
+                });
+            }
+        }
+
+        // Mariposas vectoriales Moradas y Doradas
+        function crearSVGMariposa(esDorada) {
+            const colorPrincipal = esDorada ? '#d4af37' : '#8e7cc3';
+            const colorSecundario = esDorada ? '#f9e281' : '#b8a9c9';
+            const colorCuerpo = '#4a3e56';
+
+            return `
+                <svg width="42" height="42" viewBox="0 0 50 50">
+                    <path d="M25,22 C20,8 3,6 7,22 C10,32 22,26 25,28 C28,26 40,32 43,22 C47,6 30,8 25,22 Z" fill="${colorPrincipal}"/>
+                    <path d="M25,28 C21,36 10,40 14,46 C18,50 24,40 25,32 C26,40 32,50 36,46 C40,40 29,36 25,28 Z" fill="${colorSecundario}"/>
+                    <circle cx="25" cy="25" r="2.5" fill="${colorCuerpo}"/>
+                </svg>
+            `;
+        }
+
+        function liberarMariposasMoradasYDoradas() {
+            const contenedor = document.getElementById('contenedor-mariposas');
+            const total = 28;
+
+            for (let i = 0; i < total; i++) {
+                setTimeout(() => {
+                    const div = document.createElement('div');
+                    div.className = 'mariposa-volando';
+                    
+                    const esDorada = i % 3 === 0; 
+                    div.innerHTML = crearSVGMariposa(esDorada);
+                    
+                    div.style.left = Math.random() * 88 + 6 + 'vw';
+                    
+                    const duracion = Math.random() * 2.5 + 3.8;
+                    div.style.animationDuration = duracion + 's';
+                    
+                    contenedor.appendChild(div);
+
+                    setTimeout(() => { div.remove(); }, duracion * 1000);
+                }, i * 160);
+            }
+        }
+
+        function controlarMusica() {
+            const audio = document.getElementById('musica');
+            if (audio.paused) { audio.play(); } else { audio.pause(); }
+        }
+
+        // Cuenta Regresiva para el 29 de Agosto a las 7:00 PM
+        const fechaDestino = new Date('August 29, 2026 19:00:00').getTime();
+
+        setInterval(function() {
+            const ahora = new Date().getTime();
+            const diferencia = fechaDestino - ahora;
+
+            const d = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+            const h = Math.floor((diferencia % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const m = Math.floor((diferencia % (1000 * 60 * 60)) / (1000 * 60));
+            const s = Math.floor((diferencia % (1000 * 60)) / 1000);
+
+            if (diferencia > 0) {
+                document.getElementById('dias').innerText = d < 10 ? '0' + d : d;
+                document.getElementById('horas').innerText = h < 10 ? '0' + h : h;
+                document.getElementById('minutos').innerText = m < 10 ? '0' + m : m;
+                document.getElementById('segundos').innerText = s < 10 ? '0' + s : s;
+            } else {
+                document.getElementById('dias').innerText = '00';
+                document.getElementById('horas').innerText = '00';
+                document.getElementById('minutos').innerText = '00';
+                document.getElementById('segundos').innerText = '00';
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
